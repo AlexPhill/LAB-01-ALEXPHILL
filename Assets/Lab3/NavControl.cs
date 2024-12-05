@@ -9,7 +9,7 @@ public class NavControl : MonoBehaviour
     NavMeshAgent agent;
     bool isWalking = true;
     Animator animator;
-    public float speed = 0.5f;
+    public float speed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +18,9 @@ public class NavControl : MonoBehaviour
         animator = GetComponent<Animator>();
 
 
-        speed = Random.Range(0.5f, 2.0f);
-        agent.speed = speed;
-        animator.speed = agent.speed + 0.25f;
+      //  speed = Random.Range(0.5f, 2.0f);
+     //   agent.speed = speed;
+    //    animator.speed = agent.speed + 0.25f;
 
     }
 
@@ -46,11 +46,21 @@ public class NavControl : MonoBehaviour
             isWalking = false;
             animator.SetTrigger("ATTACK");
         }
+        if (other.name == "Heart")
+        {
+            isWalking = false;
+            animator.SetTrigger("SPECIAL");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.name == "Boar")
+        {
+            isWalking = true;
+            animator.SetTrigger("WALK");
+        }
+        if (other.name == "Heart")
         {
             isWalking = true;
             animator.SetTrigger("WALK");

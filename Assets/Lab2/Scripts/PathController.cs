@@ -11,7 +11,7 @@ public class PathController : MonoBehaviour
     bool isWalking;
     List<Waypoint> thePath;
     Waypoint target;
-
+    public int ActionNum = 0;
     public float MoveSpeed;
     public float RotateSpeed;
 
@@ -62,6 +62,11 @@ public class PathController : MonoBehaviour
         {
             rotateTowardsTarget();
             moveForward();
+            if (ActionNum >= 4)
+            {
+                ActionNum = 0;
+                animator.SetInteger("ActionNum", ActionNum);
+            }
         }
     }
 
@@ -69,6 +74,8 @@ public class PathController : MonoBehaviour
     {
         //switchtonexttarget
         target = pathManager.GetNextTarget();
+        ActionNum++;
+        animator.SetInteger("ActionNum", ActionNum);
     }
 
     private void OnCollisionStay(Collision collision)
